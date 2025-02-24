@@ -1,0 +1,22 @@
+body {
+  background-color: #F7F9FC;
+  font-family: "Poppins", sans-serif;
+}
+
+.navbar {
+  background-color: #A1C3D1;
+  padding: 10px 20px;
+}
+
+.btn-primary {
+  background-color: #5A9;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #488A7D;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #E2F0CB !important;
+}
