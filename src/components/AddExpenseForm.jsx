@@ -1,23 +1,162 @@
-import React, { useState } from "react";
-import { Modal, Form, Button } from "react-bootstrap";
+// import React, { useState } from "react";
+// import { Modal, Form, Button, Alert } from "react-bootstrap";
+// import { addExpense } from "../services/api"; // ✅ Import API function
 
-const AddExpenseForm = ({ addExpense, onClose }) => {
+// const AddExpenseForm = ({ onClose }) => {
+//   const [formData, setFormData] = useState({
+//     date: "",
+//     title: "",
+//     amount: "",
+//     type: "debit",
+//     category: "",
+//     description: "",
+//   });
+
+//   const [error, setError] = useState(null);
+//   const [success, setSuccess] = useState(null);
+
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const formattedData = {
+//         ...formData,
+//         amount: parseFloat(formData.amount), // ✅ Convert amount to a number
+//         type: formData.type.toLowerCase(), // ✅ Normalize type
+//       };
+
+//       await addExpense(formattedData); // ✅ Send data to backend
+//       setSuccess("Expense added successfully!");
+//       setError(null);
+
+//       // ✅ Reset form after submission
+//       setFormData({ date: "", title: "", amount: "", type: "debit", category: "", description: "" });
+
+//       // ✅ Close modal after delay
+//       setTimeout(() => {
+//         setSuccess(null);
+//         onClose();
+//       }, 1500);
+//     } catch (err) {
+//       setError("Failed to add expense. Please try again.");
+//       setSuccess(null);
+//     }
+//   };
+
+//   return (
+//     <Modal show onHide={onClose} centered>
+//       <Modal.Header closeButton>
+//         <Modal.Title>Add Expense</Modal.Title>
+//       </Modal.Header>
+//       <Modal.Body>
+//         {error && <Alert variant="danger">{error}</Alert>}
+//         {success && <Alert variant="success">{success}</Alert>}
+
+//         <Form onSubmit={handleSubmit}>
+//           <Form.Group className="mb-2">
+//             <Form.Label>Date</Form.Label>
+//             <Form.Control type="date" name="date" value={formData.date} onChange={handleChange} required />
+//           </Form.Group>
+
+//           <Form.Group className="mb-2">
+//             <Form.Label>Title</Form.Label>
+//             <Form.Control type="text" name="title" value={formData.title} onChange={handleChange} required />
+//           </Form.Group>
+
+//           <Form.Group className="mb-2">
+//             <Form.Label>Amount</Form.Label>
+//             <Form.Control type="number" name="amount" value={formData.amount} onChange={handleChange} required />
+//           </Form.Group>
+
+//           <Form.Group className="mb-2">
+//             <Form.Label>Type</Form.Label>
+//             <Form.Select name="type" value={formData.type} onChange={handleChange}>
+//               <option value="debit">Debit</option>
+//               <option value="credit">Credit</option>
+//             </Form.Select>
+//           </Form.Group>
+
+//           <Form.Group className="mb-2">
+//             <Form.Label>Category</Form.Label>
+//             <Form.Control type="text" name="category" value={formData.category} onChange={handleChange} required />
+//           </Form.Group>
+
+//           <Form.Group className="mb-2">
+//             <Form.Label>Description</Form.Label>
+//             <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
+//           </Form.Group>
+
+//           <div className="d-flex justify-content-between">
+//             <Button type="submit" variant="success" className="mt-2">Add Expense</Button>
+//             <Button variant="secondary" className="mt-2" onClick={onClose}>Close</Button>
+//           </div>
+//         </Form>
+//       </Modal.Body>
+//     </Modal>
+//   );
+// };
+
+// export default AddExpenseForm;
+import React, { useState } from "react";
+import { Modal, Form, Button, Alert } from "react-bootstrap";
+import { addExpense } from "../services/api";
+
+const AddExpenseForm = ({ onClose, setExpenses }) => {
   const [formData, setFormData] = useState({
     date: "",
     title: "",
     amount: "",
     type: "debit",
     category: "",
+    description: "",
   });
+
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addExpense(formData);
-    onClose();
+    try {
+      const formattedData = {
+        ...formData,
+        amount: parseFloat(formData.amount),
+        type: formData.type.toLowerCase(),
+      };
+
+      console.log("🔄 Sending Data to API:", formattedData);
+      
+      const newExpense = await addExpense(formattedData);
+      console.log("✅ API Response:", newExpense);
+
+      setSuccess("Expense added successfully!");
+      setError(null);
+
+      // ✅ Only update table if setExpenses is available
+      if (setExpenses) {
+        setExpenses((prevExpenses) => [...prevExpenses, newExpense]);
+      } else {
+        console.warn("⚠️ Warning: setExpenses is not defined!");
+      }
+
+      // ✅ Reset Form
+      setFormData({ date: "", title: "", amount: "", type: "debit", category: "", description: "" });
+
+      setTimeout(() => {
+        setSuccess(null);
+        onClose();
+      }, 1000);
+    } catch (err) {
+      console.error("❌ API Error:", err.message);
+      setError(err.message || "Failed to add expense. Please try again.");
+      setSuccess(null);
+    }
   };
 
   return (
@@ -26,25 +165,28 @@ const AddExpenseForm = ({ addExpense, onClose }) => {
         <Modal.Title>Add Expense</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {error && <Alert variant="danger">{error}</Alert>}
+        {success && <Alert variant="success">{success}</Alert>}
+
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-2">
             <Form.Label>Date</Form.Label>
-            <Form.Control type="date" name="date" onChange={handleChange} required />
+            <Form.Control type="date" name="date" value={formData.date} onChange={handleChange} required />
           </Form.Group>
 
           <Form.Group className="mb-2">
             <Form.Label>Title</Form.Label>
-            <Form.Control type="text" name="title" onChange={handleChange} required />
+            <Form.Control type="text" name="title" value={formData.title} onChange={handleChange} required />
           </Form.Group>
 
           <Form.Group className="mb-2">
             <Form.Label>Amount</Form.Label>
-            <Form.Control type="number" name="amount" onChange={handleChange} required />
+            <Form.Control type="number" name="amount" value={formData.amount} onChange={handleChange} required />
           </Form.Group>
 
           <Form.Group className="mb-2">
             <Form.Label>Type</Form.Label>
-            <Form.Select name="type" onChange={handleChange}>
+            <Form.Select name="type" value={formData.type} onChange={handleChange}>
               <option value="debit">Debit</option>
               <option value="credit">Credit</option>
             </Form.Select>
@@ -52,10 +194,18 @@ const AddExpenseForm = ({ addExpense, onClose }) => {
 
           <Form.Group className="mb-2">
             <Form.Label>Category</Form.Label>
-            <Form.Control type="text" name="category" onChange={handleChange} required />
+            <Form.Control type="text" name="category" value={formData.category} onChange={handleChange} required />
           </Form.Group>
 
-          <Button type="submit" variant="success" className="mt-2">Add Expense</Button>
+          <Form.Group className="mb-2">
+            <Form.Label>Description</Form.Label>
+            <Form.Control as="textarea" rows={3} name="description" value={formData.description} onChange={handleChange} />
+          </Form.Group>
+
+          <div className="d-flex justify-content-between">
+            <Button type="submit" variant="success" className="mt-2">Add Expense</Button>
+            <Button variant="secondary" className="mt-2" onClick={onClose}>Close</Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

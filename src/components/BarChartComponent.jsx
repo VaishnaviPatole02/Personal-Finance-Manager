@@ -1,15 +1,18 @@
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-const data = [
-  { name: "Jan", value: 500 },
-  { name: "Feb", value: 700 },
-  { name: "Mar", value: 600 },
-  { name: "Apr", value: 400 },
-  { name: "May", value: 800 },
-];
+const BarChartComponent = ({ expenses }) => {
+  // ✅ Aggregate expenses by category
+  const data = expenses.reduce((acc, expense) => {
+    const found = acc.find((item) => item.name === expense.category);
+    if (found) {
+      found.value += expense.amount;
+    } else {
+      acc.push({ name: expense.category, value: expense.amount });
+    }
+    return acc;
+  }, []);
 
-const BarChartComponent = () => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <BarChart data={data}>
