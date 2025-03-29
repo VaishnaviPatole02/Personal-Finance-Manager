@@ -1,0 +1,26 @@
+body {
+  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffdde1);
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
+}
+
+
+.navbar {
+  background-color: #A1C3D1;
+  padding: 10px 20px;
+}
+
+.btn-primary {
+  background-color: #5A9;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #488A7D;
+}
+
+.table-hover tbody tr:hover {
+  background-color: #E2F0CB !important;
+}
