@@ -1,48 +1,70 @@
 import React from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import moneyImage from "../assets/front2.avif"; 
 
-const WelcomePage = () => {
+const Home = () => {
   return (
     <div>
-      {/* Internal CSS using style tag */}
+      {/* Internal CSS */}
       <style>
         {`
           body {
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffdde1, #a18cd1, #fbc2eb);
-            
+            background: linear-gradient(135deg, #ffffff, #f8f9fa, #eef1f6);
           }
 
-          .welcome-container {
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          .home-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 85vh; /* Adjust height */
+          }
+
+          .text-section {
+            text-align: left;
+            max-width: 500px;
           }
 
           .main-title {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: bold;
+            color: #333;
           }
 
           .subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
+            color: #555;
           }
 
           .side-text {
-            margin-top: 15px;
             font-size: 1rem;
+            color: #777;
+            margin-top: 10px;
+          }
+
+          .image-section img {
+            max-width: 100%;
+            height: auto;
           }
         `}
       </style>
 
-      <div className="welcome-container">
-        <main className="welcome-content">
-          <h2 className="main-title">DON'T WASTE YOUR MONEY</h2>
-          <p className="subtitle">Simple way to manage personal finances</p>
-          <div className="side-text">Your finances on any device</div>
-        </main>
-      </div>
+      {/* Home Page Content */}
+      <Container className="home-container">
+        <Row className="align-items-center">
+          {/* Left Text Section */}
+          <Col md={6} className="text-section">
+            <h2 className="main-title">It’s not about how much you make, but how well you manage it.</h2>
+            <p className="subtitle">Simple way to manage personal finances</p>
+            </Col>
+
+          {/* Right Image Section */}
+          <Col md={6} className="image-section">
+            <img src={moneyImage} alt="Finance Management" />
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
 
-export default WelcomePage;
+export default Home;

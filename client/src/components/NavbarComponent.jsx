@@ -8,13 +8,14 @@ const NavbarComponent = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user");
-    navigate("/home");
+    localStorage.removeItem("token");
+    navigate("/"); // Redirect to login
   };
 
   return (
-    <Navbar bg="light" expand="lg" className="px-4 shadow-sm">
+    <Navbar style={{ backgroundColor: "#6c757d" }} expand="lg" className="px-4 shadow-sm">
       <Container>
-        <Navbar.Brand as={Link} to="/" className="fw-bold">
+        <Navbar.Brand as={Link} to="/" className="fw-bold text-white">
           Personal Finance Manager
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -22,26 +23,28 @@ const NavbarComponent = () => {
           <Nav className="ms-auto align-items-center">
             {user ? (
               <>
-                <Nav.Link as={Link} to="/dashboard">
-                  🏠 Home
-                </Nav.Link>
-                <Nav.Link as={Link} to="/expenses">
-                  📄 Transactions
-                </Nav.Link>
-                <Nav.Link as={Link} to="/budget">
-                  💰 Budget
-                </Nav.Link>
-                <Nav.Link as={Link} to="/reports">
-                  📊 Reports
-                </Nav.Link>
-                <Button variant="danger" onClick={handleLogout}>
-                  🚪 Logout
-                </Button>
+                <Nav.Item>
+                  <Link to="/dashboard" className="nav-link text-white">🏠 Home</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/expenses" className="nav-link text-white">📄 Transactions</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/budget" className="nav-link text-white">💰 Budget</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/reports" className="nav-link text-white">📊 Reports</Link>
+                </Nav.Item>
+                <Button variant="light" onClick={handleLogout} className="text-dark ms-3">🚪 Logout</Button>
               </>
             ) : (
               <>
-                <Nav.Link as={Link} to="/login">Login</Nav.Link>
-                <Nav.Link as={Link} to="/register">Register</Nav.Link>
+                <Nav.Item>
+                  <Link to="/login" className="nav-link text-white">Login</Link>
+                </Nav.Item>
+                <Nav.Item>
+                  <Link to="/register" className="nav-link text-white">Register</Link>
+                </Nav.Item>
               </>
             )}
           </Nav>

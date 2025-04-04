@@ -1,10 +1,12 @@
 import express from "express";
-import { saveBudget, getBudget } from "../controllers/budgetController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
+import { addBudget, getBudgets, updateBudget, deleteBudget } from "../controllers/budgetController.js";
+import { protect } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/save", authMiddleware, saveBudget);
-router.get("/get", authMiddleware, getBudget); // ✅ Ensure this matches frontend
+router.post("/add", protect, addBudget);
+router.get("/", protect, getBudgets);
+router.put("/:id", protect, updateBudget);
+router.delete("/:id", protect, deleteBudget);
 
 export default router;

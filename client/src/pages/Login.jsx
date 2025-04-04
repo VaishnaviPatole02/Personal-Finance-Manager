@@ -1,42 +1,30 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { loginUser } from "../services/api";
+import { loginUser } from "../services/Api";
 
 const Login = () => {
-  <div>
-    <style>.container 
-  background: transparent !important;
-
-</style>
-  </div>
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const data = await loginUser(formData);
-      
-      //  Store Token in Local Storage
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data));
-
-      // Navigate to Dashboard
       navigate("/dashboard");
     } catch (err) {
-      setError(err.message || "Login failed. Please check your credentials.");
+      setError(err.response?.data?.message || "Login failed. Check your credentials.");
     }
   };
 
   return (
-    <Container className="mt-4">
-      <h2 className="text-center text-primary">Login</h2>
+    <Container className="mt-4" square-container>
+      <h2 className="text-center ">Login</h2>
       {error && <Alert variant="danger">{error}</Alert>}
       <Form onSubmit={handleLogin} className="p-4 shadow rounded bg-light">
         <Form.Group className="mb-3">
@@ -47,7 +35,10 @@ const Login = () => {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" name="password" value={formData.password} onChange={handleChange} required />
         </Form.Group>
-        <Button variant="primary" type="submit">Login</Button>
+        <Button style={{ backgroundColor: "#6f42c1", borderColor: "#6f42c1", color: "white" }} type="submit">
+        Login
+</Button>
+
       </Form>
     </Container>
   );

@@ -7,7 +7,7 @@
   .welcome-text {
     font-size: 24px;
     font-weight: bold;
-    color: #007bff; /* Blue color */
+    color:rgb(30, 42, 56); /* Blue color */
   }
   
   /* Add image styling */
@@ -118,7 +118,7 @@ body {
 }
 /* Apply a colorful gradient background */
 .home-container {
-  background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+  background: linear-gradient(135deg, #fdfdfd, #faf8f8, #fcfbfb, #fffeff);
   height: 100vh; /* Full screen height */
   display: flex;
   justify-content: center;

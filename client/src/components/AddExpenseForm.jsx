@@ -24,7 +24,7 @@ const AddExpenseForm = ({ onClose }) => {
     try {
       const formattedData = {
         ...formData,
-        amount: formData.amount ? parseFloat(formData.amount) : 0, // Ensure it's a number
+        amount: formData.amount ? parseFloat(formData.amount) : 0, 
         type: formData.type.toLowerCase(),
       };
 
@@ -97,7 +97,7 @@ const AddExpenseForm = ({ onClose }) => {
           </Form.Group>
 
           <div className="d-flex justify-content-between">
-            <Button type="submit" variant="success" className="mt-2">Add Expense</Button>
+            <Button type="submit" variant="dark" className="mt-2">Add Expense</Button>
             <Button variant="secondary" className="mt-2" onClick={onClose}>Close</Button>
           </div>
         </Form>
