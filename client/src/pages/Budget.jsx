@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Button, Alert, Container, Table, Modal } from "react-bootstrap";
-import { saveBudget, getBudgets, getExpenses } from "../services/api"; // ✅ Correct Import
+import { saveBudget, getBudgets, getExpenses } from "../services/api"; 
 
 const Budget = () => {
   const [showForm, setShowForm] = useState(false);
@@ -62,7 +62,7 @@ const Budget = () => {
     }, 2000);
   };
 
-  // Calculate current balance for each category
+  //For Calculating current balance for each category
   const calculateCurrentBalance = (category, budgetAmount) => {
     const totalExpenses = expenses
       .filter((expense) => expense.category === category && expense.type === "debit")

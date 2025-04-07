@@ -7,7 +7,7 @@ import { saveBudget, getBudgets, getExpenses } from "../services/api";
 import api from "../services/api"; 
 
 
-// ✅ Pie Chart Colors
+
 const COLORS = ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0", "#9966FF", "#FF9F40", "#B3B3B3", "#F7464A"];
 
 const Reports = () => {
@@ -22,7 +22,7 @@ const Reports = () => {
     fetchExpenses();
   }, []);
 
-  // ✅ Fetch Budgets
+  
   const fetchBudgets = async () => {
     try {
       const response = await getBudgets();
@@ -33,7 +33,7 @@ const Reports = () => {
     }
   };
 
-  // ✅ Fetch Expenses with Authorization
+  
   const fetchExpenses = async () => {
     try {
       const token = localStorage.getItem("token");
@@ -52,7 +52,7 @@ const Reports = () => {
     }
   };
 
-  // ✅ Format Data for Charts
+  
   const formatChartData = () => {
     return budgets.map((budget) => ({
       name: budget.category,
@@ -76,7 +76,7 @@ const Reports = () => {
       <Container className="mt-4">
         <h2 className="text-center">Financial Reports</h2>
 
-        {/* Chart Filters */}
+        
         <div className="d-flex justify-content-center flex-wrap gap-3 mt-3">
           <div>
             <label className="fw-bold">Select Chart Type:</label>
@@ -96,7 +96,7 @@ const Reports = () => {
           </div> */}
         </div>
 
-        {/* Chart Display */}
+        
         <div className="mt-4 d-flex justify-content-center">
           {chartType === "bar" && (
             <ResponsiveContainer width="80%" height={300}>

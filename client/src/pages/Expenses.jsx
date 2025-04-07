@@ -22,7 +22,7 @@ const Expenses = () => {
     loadExpenses();
   }, []);
 
-  //  Function to delete an expense
+  
   const handleDelete = async (id) => {
     try {
       await deleteExpense(id);
@@ -32,13 +32,13 @@ const Expenses = () => {
     }
   };
 
-  //  Function to open edit modal
+  
   const handleEdit = (expense) => {
     setSelectedTransaction(expense);
     setShowModal(true);
   };
 
-  //  Function to update an expense
+  
   const handleUpdate = async (updatedExpenseData) => {
     try {
       const response = await updateExpense(selectedTransaction._id, updatedExpenseData);
@@ -62,7 +62,7 @@ const Expenses = () => {
         </Card.Body>
       </Card>
 
-      {/* Edit Expense Modal */}
+      
       <EditFormModel
         showModal={showModal}
         selectedTransaction={selectedTransaction}

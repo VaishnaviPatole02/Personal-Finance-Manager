@@ -5,7 +5,7 @@ import axios from "axios";
 import AddExpenseForm from "../components/AddExpenseForm";
 import "../styles.css";
 
-// Import images
+
 import incomeImg from "../assets/income.png";
 import expenseImg from "../assets/expense.png";
 import balanceImg from "../assets/total.png";
@@ -25,21 +25,21 @@ const Dashboard = () => {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
     if (!storedUser) {
-      navigate("/login"); // Redirect if not logged in
+      navigate("/login"); 
     } else {
       setUser(storedUser);
-      fetchSummary(); // Fetch summary on load
+      fetchSummary(); 
     }
   }, [navigate]);
 
   const fetchSummary = async () => {
     setLoading(true);
     setError(null);
-    const token = localStorage.getItem("token"); // Get token
+    const token = localStorage.getItem("token"); 
 
     try {
       const response = await axios.get("http://localhost:5000/api/expenses", {
-        headers: { Authorization: `Bearer ${token}` }, // Attach token
+        headers: { Authorization: `Bearer ${token}` }, 
       });
 
       if (response.data && response.data.length > 0) {
@@ -75,7 +75,7 @@ const Dashboard = () => {
       {user && <h2 className="mb-3" style={{ color: "black" }}>Welcome {user.name}!</h2>}
 
 
-      {/* Add Expense Button (Above Cards) */}
+      
       <div className="mb-4">
         <Button variant="dark" size="lg" onClick={() => setShowForm(true)}>
           + Add Expense
@@ -121,7 +121,7 @@ const Dashboard = () => {
         </Row>
       )}
 
-      {/* Expense Form Modal */}
+      
       {showForm && <AddExpenseForm onClose={() => setShowForm(false)} onExpenseAdded={fetchSummary} />}
     </Container>
   );

@@ -5,7 +5,7 @@ import moneyImage from "../assets/front2.avif";
 const Home = () => {
   return (
     <div>
-      {/* Internal CSS */}
+      
       <style>
         {`
           body {
@@ -48,16 +48,16 @@ const Home = () => {
         `}
       </style>
 
-      {/* Home Page Content */}
+      
       <Container className="home-container">
         <Row className="align-items-center">
-          {/* Left Text Section */}
+          
           <Col md={6} className="text-section">
             <h2 className="main-title">It’s not about how much you make, but how well you manage it.</h2>
             <p className="subtitle">Simple way to manage personal finances</p>
             </Col>
 
-          {/* Right Image Section */}
+          
           <Col md={6} className="image-section">
             <img src={moneyImage} alt="Finance Management" />
           </Col>

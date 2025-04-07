@@ -9,7 +9,7 @@ const NavbarComponent = () => {
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    navigate("/"); // Redirect to login
+    navigate("/"); 
   };
 
   return (

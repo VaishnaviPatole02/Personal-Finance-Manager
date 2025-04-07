@@ -24,7 +24,7 @@ const ExpensesTable = ({ transactions = [], onEdit, onDelete }) => {
             transactions.map((transaction, index) => (
               <tr key={index}>
                 <td>{transaction.date.split("T")[0]}</td>
-                <td>{transaction.title}</td>
+                <td>{transaction.title ||"No Title"}</td>
                 <td>₹{transaction.amount}</td>
                 <td>{transaction.type === "credit" ? "Credit" : "Debit"}</td>
                 <td>{transaction.category}</td>

@@ -31,7 +31,7 @@ export const addExpense = async (req, res) => {
 
 export const getExpenses = async (req, res) => {
     try {
-        const expenses = await Expense.find({ userId: req.user.id }); // ✅ Filter by user
+        const expenses = await Expense.find({ userId: req.user.id }); 
         return res.status(200).json(expenses);
     } catch (error) {
         return res.status(500).json({ error: error.message });
@@ -67,7 +67,7 @@ export const updateExpense = async (req, res) => {
         }
 
         const updatedExpense = await Expense.findOneAndUpdate(
-            { _id: id, userId: req.user.id }, // ✅ Ensure user can only update their own expense
+            { _id: id, userId: req.user.id }, 
             updatedData,
             { new: true }
         );
